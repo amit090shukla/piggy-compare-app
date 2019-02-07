@@ -95,6 +95,9 @@ const StyledCompareCardWrapper = styled.div`
   padding: 10px;
   margin-right: 10px;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const StyledCompareCard = styled.div`
   border: 1px solid #d2d2d2;

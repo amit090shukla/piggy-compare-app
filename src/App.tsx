@@ -35,6 +35,7 @@ class App extends Component<Props, State> {
 
   searchFunds = async (e: any) => {
     e.preventDefault();
+    this.setState({ isLoading: true });
     const rawResponse = await fetch("https://api.piggy.co.in/v2/mf/search/", {
       method: "POST",
       headers: {
@@ -42,14 +43,15 @@ class App extends Component<Props, State> {
       },
       body: JSON.stringify({
         search: this.state.query,
-        rows: 2,
+        rows: 3,
         offset: 1
       })
     });
     const content = await rawResponse.json();
     this.setState({
       ...this.state,
-      searchResults: content.data.search_results
+      searchResults: content.data.search_results,
+      isLoading: false
     });
   };
 
@@ -88,18 +90,18 @@ class App extends Component<Props, State> {
   };
 
   public render() {
-    const { query, addedItems, searchResults } = this.state;
+    const { query, addedItems, searchResults, isLoading } = this.state;
     return (
       <StyledContainer>
         <Header />
-        <div className="d-f space-between">
-          <StyledSearchContainer>
+        <StyledSearchContainer className="d-f space-between">
+          <div>
             <h1 className="m-t-20">Compare Mutual Funds</h1>
             <p className="m-t-5">
               Search & Compare multiple mutual funds so you can take the best
               decision.
             </p>
-            <div className="m-t-20">
+            <div className="m-t-20 d-f">
               <StyledSearchField
                 type="text"
                 value={query}
@@ -113,10 +115,12 @@ class App extends Component<Props, State> {
                 onClick={e => this.searchFunds(e)}
               />
             </div>
-            {searchResults.length ? (
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : searchResults.length ? (
               <div>
                 <p className="subhead m-t-20">{searchResults.length} Results</p>
-                <div className="d-f m-t-20">
+                <StyledSearchResult className="d-f-c m-t-20">
                   {searchResults.map((val, key) => (
                     <SearchResults
                       key={key}
@@ -126,10 +130,10 @@ class App extends Component<Props, State> {
                       removeFromList={this.removeFromList}
                     />
                   ))}
-                </div>
+                </StyledSearchResult>
               </div>
             ) : null}
-          </StyledSearchContainer>
+          </div>
           <StyledItemContainer>
             {addedItems.length ? (
               <div className="d-f-c space-between">
@@ -171,7 +175,7 @@ class App extends Component<Props, State> {
               </>
             )}
           </StyledItemContainer>
-        </div>
+        </StyledSearchContainer>
         {this.state.addedItems.length ? (
           <CompareSection addedItems={addedItems} />
         ) : null}
@@ -184,12 +188,19 @@ export default App;
 
 // -------------------------------------STYLES-------------------------------------
 const StyledContainer = styled.div``;
-const StyledSearchContainer = styled.div``;
+const StyledSearchContainer = styled.div`
+  @media (max-width: 960px) {
+    flex-direction: column;
+  }
+`;
 const StyledItemContainer = styled.div`
   box-shadow: 0 3px 3px #d2d2d2;
   padding: 25px 40px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    margin-top: 50px;
+  }
 `;
 
 const StyledSearchButton = styled.input`
@@ -204,4 +215,13 @@ const StyledSearchField = styled.input`
   border: 1px solid #d2d2d2;
   margin-right: 10px;
   width: 70%;
+`;
+
+const StyledSearchResult = styled.div`
+  height: 450px;
+  overflow-y: scroll;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: 400px;
+  }
 `;
