@@ -1,4 +1,5 @@
 Project Link [Piggy - Compare App](http://hard-lizards.surge.sh/).
+![](Piggy.gif)
 
 ## Available Scripts
 
