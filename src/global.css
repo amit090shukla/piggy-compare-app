@@ -1,0 +1,72 @@
+/* ---------------------------------GLOBAL SETTINGS----------------------------- */
+* {
+  font-family: "Open Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+body {
+  padding: 20px 60px;
+}
+
+/* --------------------------------HELPER CLASSES------------------------------ */
+.d-f {
+  display: flex;
+}
+.d-f-c {
+  display: flex;
+  flex-direction: column;
+}
+.c-p {
+  cursor: pointer;
+}
+.m-t-5 {
+  margin-top: 5px;
+}
+.m-t-10 {
+  margin-top: 10px;
+}
+.m-t-20 {
+  margin-top: 20px;
+}
+.m-r-5 {
+  margin-right: 5px;
+}
+.m-r-10 {
+  margin-right: 10px;
+}
+.m-r-20 {
+  margin-right: 20px;
+}
+
+.subhead {
+  font-size: 0.8em;
+  font-weight: 700;
+  color: #a7a7a7;
+  margin: 5px 0;
+}
+.head {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #000;
+  margin: 10px 0;
+}
+
+.btn-primary {
+  border: none;
+  padding: 5px 20px;
+  background: #9c3c94;
+  color: #fff;
+}
+.btn-secondary {
+  border: none;
+  padding: 5px 20px;
+  background: #f3f3f3;
+  color: #9c3c94;
+  font-weight: 700;
+}
+.t-a-c {
+  text-align: center;
+}
+.space-between {
+  justify-content: space-between;
+}
