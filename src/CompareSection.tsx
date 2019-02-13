@@ -60,7 +60,6 @@ export default class CompareSection extends React.Component<
   }
 
   public render() {
-    const { addedItems } = this.props;
     const { isLoading, mfData } = this.state;
     return (
       <StyledCompareWrapper>

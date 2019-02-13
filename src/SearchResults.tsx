@@ -12,7 +12,7 @@ interface SearchResultsProps {
 }
 //------------------------------------------------------------------------------------------
 
-export function SearchResults(props: SearchResultsProps) {
+const SearchResults = (props: SearchResultsProps) => {
   const { name, details_id } = props.fundDetails;
 
   const shouldAddItem = () => {
@@ -33,7 +33,9 @@ export function SearchResults(props: SearchResultsProps) {
       </button>
     </StyledResultContainer>
   );
-}
+};
+
+export default SearchResults;
 
 // -------------------------------------STYLES-------------------------------------
 

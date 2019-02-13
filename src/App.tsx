@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import empty from "./assets/empty.svg";
-import { SearchResults } from "./SearchResults";
+import SearchResults from "./SearchResults";
 import { FaTimes } from "react-icons/fa";
 import CompareSection from "./CompareSection";
 //----------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ interface State {
 }
 
 interface Props {}
-//-------------------------------------------------------------------------------------------
+//------------------------------------APP CLASS COMPONENT-----------------------------------------------
 
 class App extends Component<Props, State> {
   state: State = {
@@ -47,6 +47,7 @@ class App extends Component<Props, State> {
         offset: 1
       })
     });
+
     const content = await rawResponse.json();
     this.setState({
       ...this.state,
@@ -55,7 +56,7 @@ class App extends Component<Props, State> {
     });
   };
 
-  isAlreadyAdded = (detail_id: string) => {
+  isAlreadyAdded = (detail_id: string): boolean => {
     const { addedItems } = this.state;
     for (let item of addedItems) {
       if (item.details_id === detail_id) {
@@ -89,6 +90,11 @@ class App extends Component<Props, State> {
     }
   };
 
+  handleSearchOnEnter = (e: any) => {
+    if (e.key == "Enter") {
+      this.searchFunds(e);
+    }
+  };
   public render() {
     const { query, addedItems, searchResults, isLoading } = this.state;
     return (
@@ -107,12 +113,13 @@ class App extends Component<Props, State> {
                 value={query}
                 placeholder="Enter to search"
                 onChange={e => this.queryChange(e)}
+                onKeyPress={e => this.handleSearchOnEnter(e)}
               />
               <StyledSearchButton
                 type="button"
                 value="Search"
                 className="c-p"
-                onClick={e => this.searchFunds(e)}
+                onClick={this.searchFunds}
               />
             </div>
             {isLoading ? (
